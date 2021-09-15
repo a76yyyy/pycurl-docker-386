@@ -14,44 +14,18 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 
 # Install packages
 RUN apk update && \
-    apk add --update --no-cache openrc redis bash git autoconf g++ tzdata nano openssh-client automake \
+    apk add --update --no-cache openssl openssl-dev openrc redis bash git autoconf g++ tzdata nano openssh-client automake \
     nghttp2-dev ca-certificates zlib zlib-dev brotli brotli-dev zstd zstd-dev linux-headers libtool
 
 RUN apk add --update --no-cache --virtual curldeps make perl && \
-    git clone --depth 1 -b OpenSSL_1_1_1l+quic https://github.com/quictls/openssl && \
-    cd openssl && \
-    ./config enable-tls1_3 --prefix=/usr && \
-    make && \
-    make install_sw && \
-    cd .. && \
-    rm -r openssl && \
-    git clone https://github.com/ngtcp2/nghttp3 && \
-    cd nghttp3 && \
-    autoreconf -i && \
-    ./configure --prefix=/usr --enable-lib-only && \
-    make && \
-    make install && \
-    cd .. && \
-    rm -r nghttp3 && \
-    git clone https://github.com/ngtcp2/ngtcp2 && \
-    cd ngtcp2 && \
-    autoreconf -i && \
-    ./configure PKG_CONFIG_PATH=/usr/lib/pkgconfig:/usr/lib/pkgconfig LDFLAGS="-Wl,-rpath,/usr/lib" --prefix=/usr --enable-lib-only && \
-    make && \
-    make install && \
-    cd .. && \
-    rm -r ngtcp2 && \
     wget https://curl.haxx.se/download/curl-$CURL_VERSION.tar.bz2 && \
     tar xjvf curl-$CURL_VERSION.tar.bz2 && \
     rm curl-$CURL_VERSION.tar.bz2 && \
     cd curl-$CURL_VERSION && \
-    ./buildconf && \
-    LDFLAGS="-Wl,-rpath,/usr/lib" ./configure \
-        --with-openssl=/usr \
+    ./configure \
         --with-nghttp2=/usr \
-        --with-nghttp3=/usr \
-        --with-ngtcp2=/usr \
         --prefix=/usr \
+        --with-ssl \
         --enable-ipv6 \
         --enable-unix-sockets \
         --without-libidn \
