@@ -18,7 +18,7 @@ RUN apk update && \
     nghttp2-dev ca-certificates zlib zlib-dev brotli brotli-dev zstd zstd-dev linux-headers libtool
 
 RUN apk add --update --no-cache --virtual curldeps make perl && \
-    wget https://curl.haxx.se/download/curl-$CURL_VERSION.tar.bz2 && \
+    wget https://curl.se/download/curl-$CURL_VERSION.tar.bz2 && \
     tar xjvf curl-$CURL_VERSION.tar.bz2 && \
     rm curl-$CURL_VERSION.tar.bz2 && \
     cd curl-$CURL_VERSION && \
