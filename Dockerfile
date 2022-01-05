@@ -16,7 +16,8 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.ustc.edu.cn/g' /etc/apk/repositorie
 # Install packages
 RUN apk update && \
     apk add --update --no-cache openssl openssl-dev openrc redis bash git autoconf g++ tzdata nano openssh-client automake \
-    nghttp2-dev ca-certificates zlib zlib-dev brotli brotli-dev zstd zstd-dev linux-headers libtool
+    nghttp2-dev ca-certificates zlib zlib-dev brotli brotli-dev zstd zstd-dev linux-headers libtool \
+    libidn2 libidn2-dev libgsasl libgsasl-dev krb5 krb5-dev
 
 RUN apk add --update --no-cache --virtual curldeps make perl && \
     wget https://curl.se/download/curl-$CURL_VERSION.tar.bz2 && \
@@ -29,10 +30,11 @@ RUN apk add --update --no-cache --virtual curldeps make perl && \
         --with-ssl \
         --enable-ipv6 \
         --enable-unix-sockets \
-        --without-libidn \
+        --with-libidn2 \
         --disable-static \
         --disable-ldap \
-        --with-pic && \
+        --with-pic \
+        --with-gssapi && \
     make && \
     make install && \
     cd .. && \
