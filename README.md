@@ -26,8 +26,9 @@ docker pull a76yyyy/pycurl:default-latest
     --prefix=/usr \
     --enable-ipv6 \
     --enable-unix-sockets \
-    --without-libidn \
+    --with-libidn2 \
     --disable-static \
     --disable-ldap \
-    --with-pic
+    --with-pic \
+    --with-gssapi
 ```
