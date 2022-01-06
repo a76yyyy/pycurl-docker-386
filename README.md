@@ -2,9 +2,13 @@
 
 Python:3.9-Alpine latest with pycurl - default ( **not support TLS1.3 and Http3** )
 
+## **Archive Description**
+
+This repository has merged to [Pycurl-Docker](https://github.com/qiandao-today/pycurl-docker/tree/default) Repository's default branch.
+
 ## **Repository**
 
-**Github :** [https://github.com/qiandao-today/pycurl-docker-default](https://github.com/qiandao-today/pycurl-docker-default)
+~~**Github :** [https://github.com/qiandao-today/pycurl-docker-default](https://github.com/qiandao-today/pycurl-docker-default)~~
 
 **DockerHub :** [https://hub.docker.com/r/a76yyyy/pycurl](https://hub.docker.com/r/a76yyyy/pycurl)
 
